@@ -17,3 +17,12 @@ class SampleAnimationCard(ActivityHandler):
       images=[CardImage(url="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Seattle_monorail01_2008-02-25.jpg/1024px-Seattle_monorail01_2008-02-25.jpg")],
       buttons=[CardAction(type=ActionTypes.open_url,title="Open Url",value="https://dev.botframework.com/")])
       return CardFactory.hero_card(herocard)
+
+   async def on_members_added_activity(
+        self,
+        members_added: ChannelAccount,
+        turn_context: TurnContext
+    ):
+        for member_added in members_added:
+            if member_added.id != turn_context.activity.recipient.id:
+                await turn_context.send_activity("Welcome! I am your virtual Assistant.")
